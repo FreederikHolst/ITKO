@@ -1,0 +1,89 @@
+let initering = 0;  // Initialiserer variablerne
+let analyse = 0;
+let design = 0;
+let feedback = 0;
+let workshop = 0;
+let knapBeregn;
+let felt = {};  // Opretter felt som et objekt
+
+function setup() {
+  createCanvas(750, 400);
+  background(255, 253, 208);
+  
+  textSize(30);
+  text("Opgave 2.1", 10, 40);
+  
+  textSize(12);
+  text("Indtast det samlede timer for projektet:", 10, 60);
+  
+  // Indtast felt for samlede timer
+  felt.sammletTimer = createInput();  
+  felt.sammletTimer.size(100); 
+  felt.sammletTimer.position(10, 90);
+  
+  // Indtast felter for procentdele
+  felt.initering = createInput();  
+  felt.initering.size(100); 
+  felt.initering.position(10, 130);  
+  text("Initiering (%)", 120, 145); 
+  
+  felt.analyse = createInput();
+  felt.analyse.size(100); 
+  felt.analyse.position(10, 160);  
+  text("Analyse (%)", 120, 175);
+  
+  felt.design = createInput();
+  felt.design.size(100); 
+  felt.design.position(10, 190);
+  text("Design (%)", 120, 205);
+  
+  felt.feedback = createInput(); 
+  felt.feedback.size(100); 
+  felt.feedback.position(10, 220);
+  text("Feedback (%)", 120, 235); 
+  
+  felt.workshop = createInput();
+  felt.workshop.size(100); 
+  felt.workshop.position(10, 250);
+  text("Workshop (%)", 120, 265);
+  
+  // Opretter knappen og tilføjer funktionalitet
+  knapBeregn = createButton("Beregn Timer");
+  knapBeregn.position(10, 290);
+  knapBeregn.mousePressed(beregn);
+  knapBeregn.style('background-color', 'green');
+  knapBeregn.style('color', 'white');
+  knapBeregn.style('padding', '8px 10px');
+  knapBeregn.style('border-radius', '20px');
+}
+
+function beregn() {
+  // Henter det samlede timer
+  let samletTimer = float(felt.sammletTimer.value());
+  
+  // Henter procentdelen for hver fase
+  let initering = float(felt.initering.value()) / 100;
+  let analyse = float(felt.analyse.value()) / 100;
+  let design = float(felt.design.value()) / 100;
+  let feedback = float(felt.feedback.value()) / 100;
+  let workshop = float(felt.workshop.value()) / 100;
+
+  // Beregner timer for hver fase
+  let timerInitering = samletTimer * initering;
+  let timerAnalyse = samletTimer * analyse;
+  let timerDesign = samletTimer * design;
+  let timerFeedback = samletTimer * feedback;
+  let timerWorkshop = samletTimer * workshop;
+
+  // Vis resultatet
+  background(255, 253, 208); // Genopfrisk baggrunden
+  textSize(24);
+  fill(0);
+  text("Timer fordelt på faser:", 400, 100);
+  textSize(16);
+  text("Initiering: " + timerInitering.toFixed(2) + " timer", 500, 140);
+  text("Analyse: " + timerAnalyse.toFixed(2) + " timer", 500, 160);
+  text("Design: " + timerDesign.toFixed(2) + " timer", 500, 180);
+  text("Feedback: " + timerFeedback.toFixed(2) + " timer", 500, 200);
+  text("Workshop: " + timerWorkshop.toFixed(2) + " timer", 500, 220);
+}
